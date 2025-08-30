@@ -1,0 +1,5 @@
+# This file ensures the images directory is tracked by git
+# Add your image assets here:
+# - app_logo.png
+# - google_logo.png
+# - placeholder images for empty states

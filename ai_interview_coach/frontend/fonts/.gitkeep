@@ -1,0 +1,5 @@
+# This file ensures the fonts directory is tracked by git
+# Add your custom font files here:
+# - Roboto-Regular.ttf
+# - Roboto-Medium.ttf
+# - Roboto-Bold.ttf

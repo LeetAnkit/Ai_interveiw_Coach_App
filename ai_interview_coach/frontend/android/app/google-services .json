@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "27984765300",
+    "project_id": "ai-interview-project-6e392",
+    "storage_bucket": "ai-interview-project-6e392.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:27984765300:android:b3f83af7bd57a8773e0c21",
+        "android_client_info": {
+          "package_name": "com.example.ai_interview_coach"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "27984765300-nj70vmr904aje8t6nik50djomth5lqlg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrHzJ2FMNvvsTaY410JTYizGvq-OMtQ0M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "27984765300-nj70vmr904aje8t6nik50djomth5lqlg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
