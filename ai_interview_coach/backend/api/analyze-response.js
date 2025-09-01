@@ -1,139 +1,54 @@
-const axios = require('axios');
+const express = require("express");
+const { GoogleGenerativeAI } = require("@google/generative-ai");
 
-const OPENAI_SYSTEM_PROMPT = `You are an expert interview coach analyzing interview responses. Provide feedback in STRICT JSON format only.
+const router = express.Router();
 
-Analyze the response for:
-1. Tone (confident, nervous, unsure, neutral)
-2. Filler words (um, uh, like, you know, etc.)
-3. Grammar issues
-4. Relevance to the question
-5. Overall score (0-10)
-6. Improvement suggestions
-7. One follow-up question
+// ✅ Initialize Gemini client
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
-Respond ONLY with this exact JSON structure:
-{
-  "tone": "confident|nervous|unsure|neutral",
-  "fillerWords": ["word1", "word2"],
-  "grammarIssues": ["issue1", "issue2"],
-  "relevance": "brief comment on relevance",
-  "score": 0-10,
-  "suggestions": "concise improvement tips",
-  "followUp": "one relevant follow-up question"
-}`;
+// ✅ Use latest stable Gemini model
+const model = genAI.getGenerativeModel({
+  model: "gemini-2.0-flash"
+});
 
-module.exports = async (req, res) => {
+router.post("/", async (req, res) => {
   try {
-    const { question, answer } = req.body;
+    const { answer } = req.body;
 
-    if (!question || !answer) {
-      return res.status(400).json({ 
-        error: 'Missing required fields: question and answer' 
-      });
+    if (!answer) {
+      return res.status(400).json({ error: "Missing interview answer in request body" });
     }
 
-    if (!process.env.OPENAI_API_KEY) {
-      return res.status(500).json({ 
-        error: 'OpenAI API key not configured' 
-      });
-    }
+    const prompt = `
+    Analyze the following interview answer and provide:
+    1. Feedback on clarity, tone, and grammar.
+    2. A score out of 10.
+    3. A follow-up interview question.
 
-    // Prepare OpenAI request
-    const openaiRequest = {
-      model: 'gpt-4',
-      messages: [
-        {
-          role: 'system',
-          content: OPENAI_SYSTEM_PROMPT
-        },
-        {
-          role: 'user',
-          content: `Interview Question: "${question}"\n\nCandidate Response: "${answer}"\n\nProvide analysis in the specified JSON format.`
-        }
-      ],
-      temperature: 0.7,
-      max_tokens: 800
-    };
+    Answer: "${answer}"
+    `;
 
-    // Call OpenAI API
-    const openaiResponse = await axios.post(
-      'https://api.openai.com/v1/chat/completions',
-      openaiRequest,
-      {
-        headers: {
-          'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
-          'Content-Type': 'application/json'
-        },
-        timeout: 30000
-      }
-    );
+    const result = await model.generateContent({
+      contents: [
+        { parts: [{ text: prompt }] }
+      ]
+    });
 
-    let analysisResult;
-    try {
-      const content = openaiResponse.data.choices[0].message.content.trim();
-      
-      // Try to parse JSON directly
-      analysisResult = JSON.parse(content);
-    } catch (parseError) {
-      console.warn('Failed to parse OpenAI response as JSON:', parseError.message);
-      
-      // Fallback: Extract JSON from response using regex
-      const content = openaiResponse.data.choices[0].message.content;
-      const jsonMatch = content.match(/\{[\s\S]*\}/);
-      
-      if (jsonMatch) {
-        try {
-          analysisResult = JSON.parse(jsonMatch[0]);
-        } catch (fallbackError) {
-          throw new Error('Unable to parse AI response as JSON');
-        }
-      } else {
-        throw new Error('No JSON found in AI response');
-      }
-    }
+    const responseText =
+      result.response?.candidates?.[0]?.content?.parts?.[0]?.text ||
+      "No response generated";
 
-    // Validate response structure
-    const requiredFields = ['tone', 'fillerWords', 'grammarIssues', 'relevance', 'score', 'suggestions', 'followUp'];
-    const missingFields = requiredFields.filter(field => !(field in analysisResult));
-    
-    if (missingFields.length > 0) {
-      console.warn('AI response missing fields:', missingFields);
-      
-      // Provide fallback values for missing fields
-      const fallbackResponse = {
-        tone: analysisResult.tone || 'neutral',
-        fillerWords: Array.isArray(analysisResult.fillerWords) ? analysisResult.fillerWords : [],
-        grammarIssues: Array.isArray(analysisResult.grammarIssues) ? analysisResult.grammarIssues : [],
-        relevance: analysisResult.relevance || 'Response addresses the question appropriately',
-        score: typeof analysisResult.score === 'number' ? analysisResult.score : 7,
-        suggestions: analysisResult.suggestions || 'Continue practicing to improve your interview skills',
-        followUp: analysisResult.followUp || 'Can you provide a specific example to support your answer?'
-      };
-      
-      analysisResult = fallbackResponse;
-    }
-
-    // Ensure score is within valid range
-    if (typeof analysisResult.score !== 'number' || analysisResult.score < 0 || analysisResult.score > 10) {
-      analysisResult.score = Math.max(0, Math.min(10, parseInt(analysisResult.score) || 7));
-    }
-
-    res.json(analysisResult);
-
+    res.json({
+      success: true,
+      analysis: responseText
+    });
   } catch (error) {
-    console.error('Error analyzing response:', error);
-    
-    if (error.response?.status === 401) {
-      return res.status(401).json({ error: 'Invalid OpenAI API key' });
-    }
-    
-    if (error.code === 'ECONNABORTED' || error.message.includes('timeout')) {
-      return res.status(504).json({ error: 'Request timeout - please try again' });
-    }
-
-    res.status(500).json({ 
-      error: 'Failed to analyze response',
-      message: process.env.NODE_ENV === 'development' ? error.message : 'Internal server error'
+    console.error("❌ Error in /api/analyze-response:", error);
+    res.status(500).json({
+      error: "Failed to analyze interview response",
+      details: error.message
     });
   }
-};
+});
+
+module.exports = router;
