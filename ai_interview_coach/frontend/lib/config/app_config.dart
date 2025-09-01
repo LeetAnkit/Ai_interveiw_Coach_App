@@ -5,7 +5,7 @@ class AppConfig {
   // API Configuration
   static const String apiBase = String.fromEnvironment(
     'API_BASE',
-    defaultValue: 'http://localhost:3000',
+    defaultValue: 'https://ai-interveiw-coach-app.onrender.com',
   );
 
   // Frontend Configuration
