@@ -1,13 +1,7 @@
 node_modules
 .env
 
-# Flutter
-build/
-.flutter-plugins
-.flutter-plugins-dependencies
-.pub-cache/
-.packages
-*.log
+
 
 # Node.js
 node_modules/
