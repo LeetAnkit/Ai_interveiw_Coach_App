@@ -53,9 +53,9 @@ class QuestionCard extends StatelessWidget {
                 child: Text(
                   'Question $questionNumber of $totalQuestions',
                   style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
-                  ),
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                      ),
                 ),
               ),
               Container(
@@ -76,10 +76,10 @@ class QuestionCard extends StatelessWidget {
           Text(
             question,
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
-              color: Colors.white,
-              fontWeight: FontWeight.w600,
-              height: 1.4,
-            ),
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600,
+                  height: 1.4,
+                ),
           ),
           const SizedBox(height: 12),
           Container(
@@ -103,8 +103,8 @@ class QuestionCard extends StatelessWidget {
                   child: Text(
                     'Take your time and provide specific examples',
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: Colors.white.withOpacity(0.9),
-                    ),
+                          color: Colors.white.withOpacity(0.9),
+                        ),
                   ),
                 ),
               ],

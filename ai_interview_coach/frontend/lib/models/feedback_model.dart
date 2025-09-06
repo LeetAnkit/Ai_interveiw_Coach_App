@@ -17,6 +17,7 @@ class FeedbackModel {
     required this.followUp,
   });
 
+  // this is convert the feedback model tot eh JSOMN map
   factory FeedbackModel.fromJson(Map<String, dynamic> json) {
     return FeedbackModel(
       tone: json['tone'] ?? 'neutral',
@@ -41,18 +42,6 @@ class FeedbackModel {
     };
   }
 
-  // Map<String, dynamic> toJson() {
-  //   return {
-  //     'tone': tone,
-  //     'fillerWords': fillerWords,
-  //     'grammarIssues': grammarIssues,
-  //     'relevance': relevance,
-  //     'score': score,
-  //     'suggestions': suggestions,
-  //     'followUp': followUp,
-  //   };
-  // }
-
   FeedbackModel copyWith({
     String? tone,
     List<String>? fillerWords,
@@ -73,12 +62,13 @@ class FeedbackModel {
     );
   }
 
+  // switch casse is used here we also can use if else but is more appelitids
   String get toneEmoji {
     switch (tone.toLowerCase()) {
       case 'confident':
         return '😎';
       case 'nervous':
-        return '😰';
+        return '😥';
       case 'unsure':
         return '🤔';
       default:

@@ -3,9 +3,10 @@ class AppConfig {
   static const String version = '1.0.0';
 
   // API Configuration
+//  Dynamically sets the backend API base URL using environment variables
   static const String apiBase = String.fromEnvironment(
     'API_BASE',
-    defaultValue: 'http://localhost:3000',
+    defaultValue: 'https://ai-interveiw-coach-app.onrender.com',
   );
 
   // Frontend Configuration
@@ -15,6 +16,8 @@ class AppConfig {
   );
 
   // Endpoints
+
+  // this is for the backend comminrcation
   static const String analyzeEndpoint = '/api/analyze-response';
   static const String saveResultEndpoint = '/api/save-result';
   static const String historyEndpoint = '/api/history';
@@ -49,6 +52,7 @@ class AppConfig {
   static const String lastSessionKey = 'last_session_date';
 
   // Development flags
+  //Toggles for enabling dev-specific features or offline functionality
   static const bool isDevelopment =
       bool.fromEnvironment('DEVELOPMENT', defaultValue: true);
   static const bool enableOfflineMode =

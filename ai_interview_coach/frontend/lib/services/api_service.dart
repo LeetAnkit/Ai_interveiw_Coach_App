@@ -6,7 +6,9 @@ import '../config/app_config.dart';
 import '../models/feedback_model.dart';
 
 class ApiService {
-  static const Duration _timeout = Duration(seconds: 30);
+  static const Duration _timeout = Duration(
+      seconds:
+          30); // here we are setting timout for   us only tp get the answer in atleast 30 seconds it is not keep waiting
 
   Map<String, String> get _headers {
     final headers = {
@@ -48,15 +50,16 @@ class ApiService {
       }
     } catch (e) {
       if (e.toString().contains('TimeoutException')) {
-        throw Exception('Request timeout - please check your connection');
+        throw Exception('Request timeout, please check your connection');
       } else if (e.toString().contains('SocketException')) {
-        throw Exception('Network error - please check your connection');
+        throw Exception('Network error,  please check your connection');
       } else {
         throw Exception('Analysis failed: ${e.toString()}');
       }
     }
   }
 
+  // persists the analyzed result  to the backend
   Future<bool> saveResult({
     required String userId,
     required String question,
@@ -90,6 +93,7 @@ class ApiService {
     }
   }
 
+  // thiis is just checking the backend is runnning and reachable or not
   Future<Map<String, dynamic>> checkHealth() async {
     try {
       final url = Uri.parse('${AppConfig.apiBase}${AppConfig.healthEndpoint}');
