@@ -25,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> _loadData() async {
     final authProvider = context.read<AuthProvider>();
     final sessionProvider = context.read<SessionProvider>();
-    
+
     if (authProvider.user != null) {
       await sessionProvider.loadSessionHistory(authProvider.user!.uid);
     }
@@ -62,20 +62,20 @@ class _HomeScreenState extends State<HomeScreen> {
               // Welcome Section
               const WelcomeCard(),
               const SizedBox(height: 20),
-              
+
               // Stats Overview
               const StatsCard(),
               const SizedBox(height: 24),
-              
+
               // Practice Modes
               Text(
                 'Start Practicing',
                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
+                      fontWeight: FontWeight.bold,
+                    ),
               ),
               const SizedBox(height: 16),
-              
+
               Row(
                 children: [
                   Expanded(
@@ -111,9 +111,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ],
               ),
-              
+
               const SizedBox(height: 32),
-              
+
               // Recent Sessions
               const RecentSessionsCard(),
             ],

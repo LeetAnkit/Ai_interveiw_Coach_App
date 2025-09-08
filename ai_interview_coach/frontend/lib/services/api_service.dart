@@ -88,12 +88,12 @@ class ApiService {
       return response.statusCode == 200;
     } catch (e) {
       // Saving to backend is optional, so we don't throw errors
-      print('Failed to save to backend: $e');
+      print('Failed to save in the backend: $e');
       return false;
     }
   }
 
-  // thiis is just checking the backend is runnning and reachable or not
+  // thiis code is just checking the backend is runnning and reachable or not
   Future<Map<String, dynamic>> checkHealth() async {
     try {
       final url = Uri.parse('${AppConfig.apiBase}${AppConfig.healthEndpoint}');

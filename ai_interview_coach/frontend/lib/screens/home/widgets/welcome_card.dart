@@ -12,7 +12,7 @@ class WelcomeCard extends StatelessWidget {
         final user = authProvider.user;
         final displayName = user?.displayName ?? 'User';
         final firstName = displayName.split(' ').first;
-        
+
         return Container(
           width: double.infinity,
           padding: const EdgeInsets.all(20),
@@ -57,16 +57,20 @@ class WelcomeCard extends StatelessWidget {
                       children: [
                         Text(
                           'Welcome back,',
-                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            color: Colors.white.withOpacity(0.9),
-                          ),
+                          style:
+                              Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                    color: Colors.white.withOpacity(0.9),
+                                  ),
                         ),
                         Text(
                           firstName,
-                          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineSmall
+                              ?.copyWith(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
                         ),
                       ],
                     ),
@@ -89,9 +93,9 @@ class WelcomeCard extends StatelessWidget {
               Text(
                 "Ready to ace your next interview? Let's practice together!",
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: Colors.white.withOpacity(0.9),
-                  height: 1.4,
-                ),
+                      color: Colors.white.withOpacity(0.9),
+                      height: 1.4,
+                    ),
               ),
             ],
           ),

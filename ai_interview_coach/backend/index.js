@@ -6,13 +6,13 @@ const helmet = require("helmet");
 const dotenv = require("dotenv");
 dotenv.config();
 
-// ✅ Initialize Firebase Admin before anything that needs it
+//  Initialize Firebase Admin before anything that needs it
 require("./firebaseAdmin");
 
-// ✅ Gemini SDK (CommonJS)
+//  Gemini SDK (CommonJS)
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 if (!process.env.GEMINI_API_KEY) {
-  console.error("❌ Missing GEMINI_API_KEY in .env");
+  console.error(" Missing GEMINI_API_KEY in .env");
   process.exit(1);
 }
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
@@ -34,13 +34,13 @@ app.use(
       if (!origin) return cb(null, true); // e.g. mobile apps / curl
       if (allowedOrigins.includes(origin)) return cb(null, true);
 
-      // ⚠️ In dev mode, allow everything
+      //  In dev mode, allow everything
       if (process.env.NODE_ENV === "development") {
-        console.warn(`⚠️ Allowing unlisted origin in dev: ${origin}`);
+        console.warn(` Allowing unlisted origin in dev: ${origin}`);
         return cb(null, true);
       }
 
-      return cb(new Error("❌ Not allowed by CORS: " + origin));
+      return cb(new Error(" Not allowed by CORS: " + origin));
     },
     credentials: true,
   })
@@ -61,7 +61,7 @@ app.get("/", (req, res) => {
 
 app.get("/api/health", require("./api/health"));
 
-// ✅ Analyze-response route (with Gemini)
+// Analyze-response route (with Gemini)
 app.post("/api/analyze-response", async (req, res) => {
   try {
     const { question, answer } = req.body;
@@ -99,7 +99,7 @@ app.post("/api/analyze-response", async (req, res) => {
     try {
       parsed = JSON.parse(text);
     } catch (e) {
-      console.warn("⚠️ Gemini did not return pure JSON, fallback applied");
+      console.warn(" Gemini did not return pure JSON, fallback applied");
       const jsonMatch = text.match(/\{[\s\S]*\}/);
       parsed = jsonMatch ? JSON.parse(jsonMatch[0]) : { raw: text };
     }
@@ -117,13 +117,13 @@ app.post("/api/analyze-response", async (req, res) => {
   }
 });
 
-// ✅ Protected routes (Firebase Auth)
+//  Protected routes (Firebase Auth)
 const authenticate = require("./middleware/auth");
 
 try {
   app.post("/api/save-result", authenticate, require("./api/save-result"));
 } catch (e) {
-  console.error("❌ save-result route not implemented:", e.message);
+  console.error("save-result route not implemented:", e.message);
   app.post("/api/save-result", authenticate, (req, res) =>
     res.status(501).json({ error: "save-result not implemented" })
   );
@@ -132,7 +132,7 @@ try {
 try {
   app.get("/api/history", authenticate, require("./api/history"));
 } catch (e) {
-  console.error("❌ history route not implemented:", e.message);
+  console.error(" history route not implemented:", e.message);
   app.get("/api/history", authenticate, (req, res) =>
     res.status(501).json({ error: "history not implemented" })
   );
@@ -140,7 +140,7 @@ try {
 
 // 🔹 Error handler
 app.use((err, req, res, next) => {
-  console.error("🔥 Error:", err?.message || err);
+  console.error("Error:", err?.message || err);
   res.status(500).json({
     error: "Internal server error",
     message:
@@ -160,11 +160,11 @@ app.listen(PORT, () => {
   console.log(`🚀 Backend running on http://localhost:${PORT}`);
   console.log(`📡 Environment: ${process.env.NODE_ENV || "development"}`);
   console.log(
-    `🔑 Gemini API: ${process.env.GEMINI_API_KEY ? "✅ Configured" : "❌ Missing"}`
+    `🔑 Gemini API: ${process.env.GEMINI_API_KEY ? "Configured" : "Missing"}`
   );
   console.log(
     `🔥 Firebase service account: ${
-      process.env.FIREBASE_SERVICE_ACCOUNT ? "✅ Present" : "❌ Missing"
+      process.env.FIREBASE_SERVICE_ACCOUNT ? " Present" : " Missing"
     }`
   );
 });

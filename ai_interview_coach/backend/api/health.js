@@ -24,7 +24,7 @@ module.exports = (req, res) => {
     environment: process.env.NODE_ENV || 'development',
     version: '1.0.0',
     services: {
-      gemini: !!process.env.GEMINI_API_KEY,   // ✅ check Gemini instead of OpenAI
+      gemini: !!process.env.GEMINI_API_KEY,   // Gemini Key Usedd
       firebase: !!process.env.FIREBASE_SERVICE_ACCOUNT
     }
   };

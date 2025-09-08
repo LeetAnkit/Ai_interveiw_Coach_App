@@ -24,7 +24,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
   Future<void> _loadHistory() async {
     final authProvider = context.read<AuthProvider>();
     final sessionProvider = context.read<SessionProvider>();
-    
+
     if (authProvider.user != null) {
       await sessionProvider.loadSessionHistory(authProvider.user!.uid);
     }
@@ -94,7 +94,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
               children: [
                 // Stats Overview
                 HistoryStats(sessions: sessions),
-                
+
                 // Sessions List
                 Expanded(
                   child: ListView.builder(
@@ -144,7 +144,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
               Navigator.pop(context);
               final authProvider = context.read<AuthProvider>();
               final sessionProvider = context.read<SessionProvider>();
-              
+
               if (authProvider.user != null) {
                 await sessionProvider.deleteSession(
                   authProvider.user!.uid,
@@ -211,7 +211,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
           ElevatedButton(
             onPressed: () {
               Navigator.pop(context);
-              // TODO: Implement PDF export functionality
+              // pdf export functionalty is to intergate ---
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
                   content: Text('PDF export feature coming soon!'),

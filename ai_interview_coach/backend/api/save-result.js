@@ -7,9 +7,9 @@ if (!admin.apps.length) {
     admin.initializeApp({
       credential: admin.credential.cert(serviceAccount)
     });
-    console.log('✅ Firebase Admin initialized');
+    console.log(' Firebase Admin initialized');
   } catch (error) {
-    console.warn('⚠️ Firebase Admin initialization failed:', error.message);
+    console.warn(' Firebase Admin initialization failed:', error.message);
   }
 }
 
@@ -49,7 +49,7 @@ module.exports = async (req, res) => {
       .collection('sessions')
       .add(sessionData);
 
-    console.log(`✅ Session saved for user ${userId}:`, sessionRef.id);
+    console.log(` Session saved for user ${userId}:`, sessionRef.id);
 
     res.json({
       success: true,

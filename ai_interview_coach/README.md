@@ -2,7 +2,7 @@
 
 A comprehensive AI-powered interview practice application built with Flutter (cross-platform frontend) and Node.js (backend API). Practice interview skills with voice or text input, receive detailed AI feedback, and track your progress over time.
 
-## 📱 Features
+##  Features
 
 ### Frontend (Flutter)
 - **Multi-platform Support**: Android, iOS, and Web deployment
@@ -20,7 +20,7 @@ A comprehensive AI-powered interview practice application built with Flutter (cr
 - **Vercel Ready**: Optimized for serverless deployment
 - **Error Handling**: Comprehensive error management and validation
 
-## 🏗️ Architecture
+##  Architecture
 
 ```
 ai_interview_coach/
@@ -83,7 +83,7 @@ nano .env  # or use your preferred editor
 
 **Environment Configuration (.env file):**
 ```env
-OPENAI_API_KEY=sk-your-openai-api-key-here
+GEMINI_API_KEY=sk-your-openai-api-key-here
 FIREBASE_SERVICE_ACCOUNT='{"type": "service_account", "project_id": "your-project-id", "private_key": "-----BEGIN PRIVATE KEY-----\n...", ...}'
 PORT=3000
 NODE_ENV=development
@@ -283,7 +283,7 @@ service cloud.firestore {
 ### Endpoints
 
 #### `POST /api/analyze-response`
-Analyzes an interview response using OpenAI GPT.
+Analyzes an interview response using GEMINI APi.
 
 **Request:**
 ```json
@@ -418,7 +418,7 @@ git push origin main
 - **Response Time**: Use efficient OpenAI prompt engineering
 - **Database**: Optimize Firestore queries and indexing
 
-## 🆘 Troubleshooting
+##  Troubleshooting
 
 ### Common Issues
 
@@ -496,7 +496,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-**Built with ❤️ using Flutter and Node.js**
+**Built with ❤️(lot of love) using Flutter and Node.js**
 
 ## 📸 Screenshots Placeholders
 

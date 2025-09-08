@@ -20,14 +20,14 @@ if (admin.apps.length === 0) {
         privateKey: creds.private_key.replace(/\\n/g, '\n'),
       }),
     });
-    console.log('✅ Firebase Admin initialized from FIREBASE_SERVICE_ACCOUNT');
+    console.log('Firebase Admin initialized from FIREBASE_SERVICE_ACCOUNT');
   } else if (process.env.GOOGLE_APPLICATION_CREDENTIALS) {
     admin.initializeApp({
       credential: admin.credential.applicationDefault(),
     });
-    console.log('✅ Firebase Admin initialized from GOOGLE_APPLICATION_CREDENTIALS');
+    console.log(' Firebase Admin initialized from GOOGLE_APPLICATION_CREDENTIALS');
   } else {
-    console.warn('⚠️ Firebase Admin not initialized — provide FIREBASE_SERVICE_ACCOUNT or GOOGLE_APPLICATION_CREDENTIALS');
+    console.warn(' Firebase Admin not initialized — provide FIREBASE_SERVICE_ACCOUNT or GOOGLE_APPLICATION_CREDENTIALS');
   }
 }
 
