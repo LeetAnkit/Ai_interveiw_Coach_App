@@ -44947,7 +44947,7 @@ A.NY.prototype={
 hD(){var s=this
 return A.af(["tone",s.a,"fillerWords",s.b,"grammarIssues",s.c,"relevance",s.d,"score",s.e,"suggestions",s.f,"followUp",s.r],t.N,t.z)},
 ga_r(){switch(this.a.toLowerCase()){case"confident":return"\ud83d\ude0e"
-case"nervous":return"\ud83d\ude30"
+case"nervous":return"\ud83d\ude25"
 case"unsure":return"\ud83e\udd14"
 default:return"\ud83d\ude10"}},
 ga0A(){var s=this.e
@@ -46965,8 +46965,8 @@ break
 case 4:p=3
 e=o.pop()
 i=A.a7(e)
-if(B.c.p(J.cu(i),"TimeoutException"))throw A.e(A.dY("Request timeout - please check your connection"))
-else if(B.c.p(J.cu(i),"SocketException"))throw A.e(A.dY("Network error - please check your connection"))
+if(B.c.p(J.cu(i),"TimeoutException"))throw A.e(A.dY("Request timeout, please check your connection"))
+else if(B.c.p(J.cu(i),"SocketException"))throw A.e(A.dY("Network error,  please check your connection"))
 else throw A.e(A.dY("Analysis failed: "+J.cu(i)))
 s=6
 break
